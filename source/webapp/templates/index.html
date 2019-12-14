@@ -16,6 +16,10 @@
             <p>Рейтинг: {{ photo.likes }}</p>
             <p>Дата создания: {{ photo.created_at|date:"Y-m-d H:i:s" }}</p>
         </div>
+        <div class="col-12">
+            <a href="{% url 'webapp:update_photo' photo.pk %}" class="btn btn-info">Изменить фото</a>
+            <a href="{% url 'webapp:delete_photo' photo.pk %}" class="btn btn-danger">Удалить фото</a>
+        </div>
         </div>
     {% endfor %}
 {% endblock %}
