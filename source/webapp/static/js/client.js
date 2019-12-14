@@ -21,7 +21,6 @@ function makeRequest(path, method, auth=true, data=null) {
     }
     return $.ajax(settings);
 }
-chec
 
 
 
@@ -115,13 +114,20 @@ function setUpButtons(){
 }
 
 
-function checkIfLiked() {
+function checkIfLiked(id) {
 
+    let request = makeRequest('can_like/'+id, 'get', true);
+    request.done(function(){
+        $("#like_btn").addClass("d-none");
+        $("#dislike_btn").removeClass("d-none");
+    }).fail(function () {
+        $("#dislike_btn").addClass("d-none");
+        $("#like_btn").removeClass("d-none");
+    });
 }
 
 $(document).ready(function() {
     setUpGlobalVars();
-    checkAuth();
     setUpButtons();
 });
 

@@ -17,16 +17,22 @@
             <p>Дата создания: {{ photo.created_at|date:"Y-m-d H:i:s" }}</p>
         </div>
         <div class="like or dislike">
-            <a href="" class="btn btn-success" id="like_{{ photo.pk }}">Лайкнуть!</a>
-            <a href="" class="btn btn-dark" id="dislike_{{ photo.pk }}">Дизлайкнуть!</a>
+            <a href="" class="btn btn-success" id="like_btn">Лайкнуть!</a>
+            <a href="" class="btn btn-dark" id="dislike_btn">Дизлайкнуть!</a>
             <script>
-                $("#like_{{ photo.pk }}").on('click', function(event){
+                like = $("#like_btn");
+                dislike = $("#dislike_btn");
+                like.on('click', function(event){
                     event.preventDefault();
                     likePhoto({{ photo.pk }});
+                    like.addClass("d-none");
+                    dislike.removeClass("d-none");
                 });
-                $("#dislike_{{ photo.pk }}").on('click', function (event) {
+                dislike.on('click', function (event) {
                     event.preventDefault();
                     dislikePhoto({{ photo.pk }});
+                    dislike.addClass("d-none");
+                    like.removeClass("d-none");
                 });
             </script>
         </div>
@@ -67,5 +73,6 @@
 {% block scripts %}
     <script>
     let photoId = {{ photo.pk }};
+    checkIfLiked(photoId);
     </script>
 {% endblock %}

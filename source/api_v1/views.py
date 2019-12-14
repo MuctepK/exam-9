@@ -40,9 +40,9 @@ class Dislike(APIView):
 
 
 class CanLike(APIView):
-    def patch(self, request, pk):
+    def get(self, request, pk):
         try:
-            like = LikeSystem.objects.get(user=request.user, photo_id=pk)
-            return Response(data={"can_like": 1})
+            LikeSystem.objects.get(user=request.user, photo_id=pk)
+            return Response(data={"can_like": 0}, status=status.HTTP_200_OK)
         except:
-            return Response(data={"can_like": 0})
+            return Response(data={"can_like": 1}, status=status.HTTP_404_NOT_FOUND)
