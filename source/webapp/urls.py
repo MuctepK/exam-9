@@ -1,4 +1,11 @@
 from django.urls import path
-urlpatterns = [
+from django.contrib.auth.views import LoginView, LogoutView
 
+from webapp.views import PhotoListView
+
+urlpatterns = [
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('', PhotoListView.as_view(), name='index')
 ]
+app_name = 'webapp'
