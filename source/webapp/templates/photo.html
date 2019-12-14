@@ -13,12 +13,22 @@
         <div class="col-8">
             <p>Автор: {{ photo.author.username }}</p>
             <p>Подпись: {{ photo.signature }}</p>
-            <p id="rating">Рейтинг: {{ photo.likes }}</p>
+            <div id="rating">Рейтинг: {{ photo.likes }}</div>
             <p>Дата создания: {{ photo.created_at|date:"Y-m-d H:i:s" }}</p>
         </div>
         <div class="like or dislike">
-            <a href="" class="btn btn-success">Лайкнуть!</a>
-            <a href="" class="btn btn-dark">Дизлайкнуть!</a>
+            <a href="" class="btn btn-success" id="like_{{ photo.pk }}">Лайкнуть!</a>
+            <a href="" class="btn btn-dark" id="dislike_{{ photo.pk }}">Дизлайкнуть!</a>
+            <script>
+                $("#like_{{ photo.pk }}").on('click', function(event){
+                    event.preventDefault();
+                    likePhoto({{ photo.pk }});
+                });
+                $("#dislike_{{ photo.pk }}").on('click', function (event) {
+                    event.preventDefault();
+                    dislikePhoto({{ photo.pk }});
+                });
+            </script>
         </div>
         </div>
         <h2 class="text-center my-5 ">Добавить комментарий </h2>
@@ -41,6 +51,7 @@
             <p>Дата создания: {{ comment.created_at }}</p>
                 <a href="" class="btn btn-danger" id="delete_comment_{{ comment.pk }}">Удалить комментарий</a>
                 <a href="" class="btn btn-info" id="update_comment_{{ comment.pk }}">Изменить комментарий</a>
+
                 <script>
                     $("#delete_comment_{{ comment.pk }}").on('click', function(event){
                         event.preventDefault();

@@ -21,6 +21,7 @@ function makeRequest(path, method, auth=true, data=null) {
     }
     return $.ajax(settings);
 }
+chec
 
 
 
@@ -54,20 +55,18 @@ function createComment(text, photo){
     let request = makeRequest('comment', 'post', true, credentials);
     request.done(function(data, status, response){
         commentBlock.prepend($(`
-            <div class="comment border-dark">
+            <div class="comment border-dark" id="comment_${data.id}">
             <h4>Комментарий от пользователя ${data.author}</h4>
             <p>${data.text}</p>
             <p>Дата создания: ${data.created_at }</p>
-            </div>
             <a href="" class="btn btn-danger" id="delete_comment_${ data.id }">Удалить комментарий</a>
                 <a href="" class="btn btn-info" id="update_comment_${ data.id }">Изменить комментарий</a>
-                <script>
-                    $("#delete_comment_${ data.id }").on('click', function(event){
-                        event.preventDefault();
-                        deleteComment(${ data.id });
-                    });
-                </script>
-        `));
+            </div>`));
+
+          $(`#delete_comment_${data.id}`).on('click', function(event){
+                event.preventDefault();
+                deleteComment(data.id);
+            });
         createTextInput.val("");
     }).fail(function (response, status, message) {
         console.log(response.responseText);
@@ -76,7 +75,7 @@ function createComment(text, photo){
 function deleteComment(id){
     let request = makeRequest('comment/' + id, 'delete', true, )
     request.done(function(data,status,response){
-        $(`#comment_${id}`).addClass('d-none');
+        $(`#comment_${id}`).remove();
         console.log("deleted");
     }).fail(function(response, status, message){
         console.log(response.responseText);
@@ -85,8 +84,8 @@ function deleteComment(id){
 function likePhoto(id){
     let request = makeRequest('like/' + id, 'patch', true,);
     request.done(function(data,status,response){
-        console.log(response.responseText)
-        console.log($("#rating").val())
+        console.log(response.responseText);
+        $("#rating").text("Рейтинг: "+ data.likes)
 
 
     }).fail(function(response, status, message){
@@ -96,8 +95,8 @@ function likePhoto(id){
 function dislikePhoto(id){
     let request = makeRequest('dislike/' + id, 'patch', true,);
     request.done(function(data,status,response){
-        console.log(response.responseText);
-        $("#rating").val(`Рейтинг :`+response.likes);
+        console.log(data);
+        $("#rating").text("Рейтинг: "+ data.likes)
 
     }).fail(function(response, status, message){
         console.log(response.responseText);
@@ -116,15 +115,8 @@ function setUpButtons(){
 }
 
 
-function checkAuth() {
-    if (getToken()){
-        createCommentForm.removeClass('d-none');
-       // editCommentForm.removeClass('d-none');
-    }
-    else{
-        createCommentForm.addClass('d-none');
-        //editCommentForm.addClass('d-none');
-    }
+function checkIfLiked() {
+
 }
 
 $(document).ready(function() {
