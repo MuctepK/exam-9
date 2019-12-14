@@ -1,0 +1,212 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$1FRLLWx6VkQC$Gs7Wj8YcP6mfwjHdYAhdwuSggrrC8BdBuZnabonj9tc=",
+    "last_login": "2019-12-14T13:14:31.575Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2019-12-13T06:16:42.079Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$uxKvlcqyrNzD$QHvrOQLZuVdyKRePEw5VWa1Z274UVedpxEMrWebOaSo=",
+    "last_login": "2019-12-14T13:19:46.958Z",
+    "is_superuser": false,
+    "username": "John",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-12-14T06:47:52.218Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$xwruFfhHgZCX$Y3J0P/U1WDr7/FkNIOc+vcC5BKIfmm5m31W7iXg2WTg=",
+    "last_login": "2019-12-14T13:12:11.346Z",
+    "is_superuser": false,
+    "username": "Mike",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-12-14T06:48:00.023Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "webapp.likesystem",
+  "pk": 87,
+  "fields": {
+    "user": 3,
+    "photo": 5
+  }
+},
+{
+  "model": "webapp.likesystem",
+  "pk": 88,
+  "fields": {
+    "user": 1,
+    "photo": 5
+  }
+},
+{
+  "model": "webapp.likesystem",
+  "pk": 89,
+  "fields": {
+    "user": 2,
+    "photo": 4
+  }
+},
+{
+  "model": "webapp.likesystem",
+  "pk": 109,
+  "fields": {
+    "user": 2,
+    "photo": 5
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 2,
+  "fields": {
+    "text": "text",
+    "photo": 3,
+    "author": 1,
+    "created_at": "2019-12-14T08:56:42.554Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 3,
+  "fields": {
+    "text": "text",
+    "photo": 3,
+    "author": 1,
+    "created_at": "2019-12-14T09:31:42.503Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 4,
+  "fields": {
+    "text": "text",
+    "photo": 3,
+    "author": 1,
+    "created_at": "2019-12-14T09:33:49.010Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 5,
+  "fields": {
+    "text": "ertert",
+    "photo": 2,
+    "author": 1,
+    "created_at": "2019-12-14T09:59:09.579Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 12,
+  "fields": {
+    "text": "ewrew",
+    "photo": 4,
+    "author": 1,
+    "created_at": "2019-12-14T11:18:28.710Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 32,
+  "fields": {
+    "text": "ewrwerwer",
+    "photo": 4,
+    "author": 1,
+    "created_at": "2019-12-14T12:21:15.293Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 40,
+  "fields": {
+    "text": "weqweqwe",
+    "photo": 5,
+    "author": 1,
+    "created_at": "2019-12-14T13:09:25.819Z"
+  }
+},
+{
+  "model": "webapp.comment",
+  "pk": 41,
+  "fields": {
+    "text": "etthytyytjuuy",
+    "photo": 5,
+    "author": 2,
+    "created_at": "2019-12-14T13:13:12.975Z"
+  }
+},
+{
+  "model": "webapp.photo",
+  "pk": 2,
+  "fields": {
+    "img": "images/239.750.jpg",
+    "signature": "\u041f\u043e\u0440\u0430 \u0431\u044b \u0438 \u043c\u043d\u0435 \u0435\u0442\u043e \u043a\u0443\u043f\u0438\u0442\u044c",
+    "created_at": "2019-12-14T06:49:58.253Z",
+    "likes": 0,
+    "author": 2
+  }
+},
+{
+  "model": "webapp.photo",
+  "pk": 3,
+  "fields": {
+    "img": "images/grusha.jpg",
+    "signature": "LUL",
+    "created_at": "2019-12-14T07:08:44.349Z",
+    "likes": 0,
+    "author": 1
+  }
+},
+{
+  "model": "webapp.photo",
+  "pk": 4,
+  "fields": {
+    "img": "images/2374-ed4_wide_UuFV6Dc.jpg",
+    "signature": "324234234",
+    "created_at": "2019-12-14T07:10:25.133Z",
+    "likes": 1,
+    "author": 1
+  }
+},
+{
+  "model": "webapp.photo",
+  "pk": 5,
+  "fields": {
+    "img": "images/grusha_h9WTShS.jpg",
+    "signature": "weretert",
+    "created_at": "2019-12-14T12:55:02.247Z",
+    "likes": 3,
+    "author": 1
+  }
+}
+]
