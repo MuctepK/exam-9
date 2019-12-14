@@ -61,11 +61,18 @@
         {% for comment in comments %}
             <div class="comment border-dark" id="comment_{{ comment.pk }}">
             <h4>Комментарий от пользователя {{ comment.author }}</h4>
-            <p>{{ comment.text }}</p>
+            <p id="comment_text_{{ comment.pk }}">{{ comment.text }}</p>
             <p>Дата создания: {{ comment.created_at }}</p>
 
                 {% if request.user == comment.author or perms.webapp.change_comment %}
-                <a href="" class="btn btn-info" id="update_comment_{{ comment.pk }}">Изменить комментарий</a>
+                <a href="" class="btn btn-info" id="update_comment_{{ comment.pk }}" data-toggle="modal" data-target="#form_modal">Изменить комментарий</a>
+                    <script>
+                    $('#update_comment_{{ comment.pk }}').on('click', function(event){
+                        event.preventDefault();
+                        showForm("{{ comment.text }}");
+                        CommentId = {{ comment.pk }};
+                    })
+                    </script>
                 {% endif %}
                 {% if request.user == comment.author or perms.webapp.delete_comment %}
                 <a href="" class="btn btn-danger" id="delete_comment_{{ comment.pk }}">Удалить комментарий</a>

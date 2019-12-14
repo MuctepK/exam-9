@@ -40,12 +40,17 @@ function getToken(name='csrftoken') {
     return cookieValue;
 
 }
-let createCommentForm, editCommentForm,formCreateSubmit, editTextInput, createTextInput, commentBlock;
+let createCommentForm,formModal, CommentId, editCommentForm,formCreateSubmit,formTitle, formEditSubmit, editTextInput, createTextInput, commentBlock;
 function setUpGlobalVars(){
     createCommentForm = $('#comment_create');
     createTextInput = $('#comment_text_create');
     commentBlock = $('#comments');
     formCreateSubmit = $('#CreateFormSubmit');
+    editCommentForm = $('#edit_form');
+    editTextInput = $('#edit_input_text');
+    formEditSubmit = $('#form_edit_submit');
+    formTitle = $('#form_title');
+    formModal = $('#form_modal');
 
 
 }
@@ -58,6 +63,17 @@ function addError(form){
 }
 function deleteError(){
     $(".errors").remove();
+}
+function editComment(id, text){
+    let credentials = {text};
+    let request = makeRequest('comment/'+id, 'patch', auth=true, credentials);
+    request.done(function (data, status, response) {
+        console.log(data);
+        $(`#comment_text_${id}`).text(data.text);
+        formModal.modal("hide");
+    }).fail(function(response,status,message){
+        console.log(response);
+    })
 }
 function createComment(text, photo){
     let credentials = {text, photo};
@@ -93,6 +109,17 @@ function deleteComment(id){
 
     })
 }
+function showForm(text){
+    $("#edit_form").removeClass("d-none");
+    editTextInput.text(text);
+    formTitle.text("Изменить");
+    formEditSubmit.text("Изменить");
+     formEditSubmit.off('click');
+        formEditSubmit.on('click', function(event) {
+            event.preventDefault();
+            editCommentForm.submit();
+        });
+}
 function likePhoto(id){
     let request = makeRequest('like/' + id, 'patch', true,);
     request.done(function(data,status,response){
@@ -115,6 +142,10 @@ function dislikePhoto(id){
     })
 }
 function setUpButtons(){
+    editCommentForm.on('submit', function (event) {
+        event.preventDefault();
+        editComment(CommentId, editTextInput.val())
+    });
     createCommentForm.on('submit', function(event){
         event.preventDefault();
         createComment(createTextInput.val(), photoId);
