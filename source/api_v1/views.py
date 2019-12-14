@@ -12,12 +12,18 @@ class CommentViewSet(ModelViewSet):
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
 
+    def get_object(self):
+        return Comment.objects.get(pk=self.kwargs.get('pk'))
+
     def get_permissions(self):
+
         if self.request.method in SAFE_METHODS:
             return []
         elif self.request.method == 'DELETE':
-            if self.request.user.has_perm('webapp.delete_comment') or self.get_object().author == self.request.user:
+            comment = self.get_object()
+            if self.request.user.has_perm('webapp.delete_comment') or comment.author == self.request.user:
                 return []
+
         return super().get_permissions()
 
 

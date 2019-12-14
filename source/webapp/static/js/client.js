@@ -49,6 +49,16 @@ function setUpGlobalVars(){
 
 
 }
+function addError(form){
+    if (form.children('.errors').length<=0){
+        form.prepend(`<div class="errors">
+            <p class="text-danger">You tried to enter empty text! Enter something to this input!</p>
+</div>`)
+    }
+}
+function deleteError(){
+    $(".errors").remove();
+}
 function createComment(text, photo){
     let credentials = {text, photo};
     let request = makeRequest('comment', 'post', true, credentials);
@@ -66,9 +76,11 @@ function createComment(text, photo){
                 event.preventDefault();
                 deleteComment(data.id);
             });
+          deleteError();
         createTextInput.val("");
     }).fail(function (response, status, message) {
         console.log(response.responseText);
+        addError(createCommentForm);
     })
 }
 function deleteComment(id){
@@ -77,7 +89,8 @@ function deleteComment(id){
         $(`#comment_${id}`).remove();
         console.log("deleted");
     }).fail(function(response, status, message){
-        console.log(response.responseText);
+        console.log(response.responseText.text);
+
     })
 }
 function likePhoto(id){

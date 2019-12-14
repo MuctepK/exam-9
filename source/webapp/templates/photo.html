@@ -40,7 +40,6 @@
                     like.removeClass("d-none");
                 });
             </script>
-
         </div>
         </div>
     {% endif %}
@@ -64,18 +63,19 @@
             <h4>Комментарий от пользователя {{ comment.author }}</h4>
             <p>{{ comment.text }}</p>
             <p>Дата создания: {{ comment.created_at }}</p>
-                {% if request.user == comment.author or perms.webapp.delete_comment %}
-                <a href="" class="btn btn-danger" id="delete_comment_{{ comment.pk }}">Удалить комментарий</a>
-                {% endif %}
+
                 {% if request.user == comment.author or perms.webapp.change_comment %}
                 <a href="" class="btn btn-info" id="update_comment_{{ comment.pk }}">Изменить комментарий</a>
                 {% endif %}
+                {% if request.user == comment.author or perms.webapp.delete_comment %}
+                <a href="" class="btn btn-danger" id="delete_comment_{{ comment.pk }}">Удалить комментарий</a>
                 <script>
                     $("#delete_comment_{{ comment.pk }}").on('click', function(event){
                         event.preventDefault();
                         deleteComment({{ comment.pk }});
                     });
                 </script>
+            {% endif %}
             </div>
             {% empty %}
             <h5 class="my-5">К этому фото еще не добавили комментариев...</h5>
