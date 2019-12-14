@@ -6,7 +6,9 @@
 {% block content %}
     <h1 class="text-center">Все фото наших пользователей</h1>
     {% for photo in photos %}
-        <div class="row">
+        <h3 class="text-center my-3">Фото N<a href="{% url 'webapp:detail_photo' photo.pk %}">{{ photo.pk }}</a></h3>
+        <div class="row border-secondary">
+
         <div class="col-4">
             <img src="{{ photo.img.url }}" alt="" height="250" width="250">
         </div>

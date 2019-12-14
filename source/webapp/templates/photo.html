@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block menu %}
+<li><a href="{% url 'webapp:update_photo' photo.pk %}" class="nav nav-link">Изменить фото</a></li>
+    <li><a href="{% url 'webapp:delete_photo' photo.pk %}" class="nav nav-link">Удалить фото</a></li>
+{% endblock %}
+{% block content %}
+    <h1 class="text-center">Фото N{{ photo.pk }}</h1>
+        <div class="row border-secondary">
+
+        <div class="col-4">
+            <img src="{{ photo.img.url }}" alt="" height="250" width="250">
+        </div>
+        <div class="col-8">
+            <p>Автор: {{ photo.author.username }}</p>
+            <p>Подпись: {{ photo.signature }}</p>
+            <p>Рейтинг: {{ photo.likes }}</p>
+            <p>Дата создания: {{ photo.created_at|date:"Y-m-d H:i:s" }}</p>
+        </div>
+        </div>
+        <h2 class="text-center my-5 ">Комментарии к этому фото</h2>
+        {% for comment in photo.comments.all %}
+            <h4>Комментарий от пользователя {{ comment.author }}</h4>
+            <p>{{ comment.text }}</p>
+            <p>Дата создания: {{ comment.created_at }}</p>
+            {% empty %}
+            <h5>К этому фото еще не добавили комментариев...</h5>
+        {% endfor %}
+{% endblock %}

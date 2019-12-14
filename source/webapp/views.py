@@ -15,8 +15,11 @@ class PhotoListView(ListView):
     def get_queryset(self):
         return Photo.objects.all().order_by('-created_at')
 
+
 class PhotoDetailView(DetailView):
     template_name = 'photo.html'
+    model = Photo
+
 
 class PhotoCreateView(CreateView):
     form_class = PhotoForm
