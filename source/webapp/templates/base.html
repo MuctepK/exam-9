@@ -10,8 +10,10 @@
 
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
     {% block styles %}{% endblock %}
 </head>
+<script src="{% static 'js/jquery.min.js' %}"></script>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -40,7 +42,6 @@
     {% block content %}{% endblock %}
 
 </div>
-<script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/client.js' %}"></script>

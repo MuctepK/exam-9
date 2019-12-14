@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
     <h1 class="text-center">Фото N{{ photo.pk }}</h1>
-        <div class="row border-secondary">
+        <div class="row border-secondary" data-id="{{ photo.pk }}">
 
         <div class="col-4">
             <img src="{{ photo.img.url }}" alt="" height="250" width="250">
@@ -13,20 +13,48 @@
         <div class="col-8">
             <p>Автор: {{ photo.author.username }}</p>
             <p>Подпись: {{ photo.signature }}</p>
-            <p>Рейтинг: {{ photo.likes }}</p>
+            <p id="rating">Рейтинг: {{ photo.likes }}</p>
             <p>Дата создания: {{ photo.created_at|date:"Y-m-d H:i:s" }}</p>
+        </div>
+        <div class="like or dislike">
+            <a href="" class="btn btn-success">Лайкнуть!</a>
+            <a href="" class="btn btn-dark">Дизлайкнуть!</a>
         </div>
         </div>
         <h2 class="text-center my-5 ">Добавить комментарий </h2>
     <form  id="comment_create">
-    {% include 'partial/form.html' with button_text='Добавить' %}
+    <div class="form-group">
+        <p class="text-center">
+        <textarea name="text" id="comment_text_create" cols="30" rows="10"  class="form-control"></textarea>
+        </p>
+    </div>
+        <p class="text-center">
+        <input type="submit" value="Добавить" class="btn btn-primary " id="formCreateSubmit">
+    </p>
     </form>
-        <h2 class="text-center my-5 ">Комментарии к этому фото</h2>
+        <h2 class="text-center my-5">Комментарии к этому фото</h2>
+        <div id="comments">
         {% for comment in comments %}
+            <div class="comment border-dark" id="comment_{{ comment.pk }}">
             <h4>Комментарий от пользователя {{ comment.author }}</h4>
             <p>{{ comment.text }}</p>
             <p>Дата создания: {{ comment.created_at }}</p>
+                <a href="" class="btn btn-danger" id="delete_comment_{{ comment.pk }}">Удалить комментарий</a>
+                <a href="" class="btn btn-info" id="update_comment_{{ comment.pk }}">Изменить комментарий</a>
+                <script>
+                    $("#delete_comment_{{ comment.pk }}").on('click', function(event){
+                        event.preventDefault();
+                        deleteComment({{ comment.pk }});
+                    });
+                </script>
+            </div>
             {% empty %}
             <h5>К этому фото еще не добавили комментариев...</h5>
         {% endfor %}
+        </div>
+{% endblock %}
+{% block scripts %}
+    <script>
+    let photoId = {{ photo.pk }};
+    </script>
 {% endblock %}
