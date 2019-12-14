@@ -14,9 +14,11 @@ class Photo(models.Model):
 
     def like(self):
         self.likes += 1
+        self.save()
 
     def dislike(self):
         self.likes -= 1
+        self.save()
 
 
 class Comment(models.Model):
@@ -33,12 +35,7 @@ class LikeSystem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='users')
     photo = models.ForeignKey(Photo, on_delete=models.CASCADE, related_name='photos')
 
-    def __init__(self):
-        super().__init__()
-        self.photo.like()
-
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
+    def save(self, *args, **kwargs):
         super().save()
         self.photo.like()
 

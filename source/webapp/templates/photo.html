@@ -17,8 +17,12 @@
             <p>Дата создания: {{ photo.created_at|date:"Y-m-d H:i:s" }}</p>
         </div>
         </div>
+        <h2 class="text-center my-5 ">Добавить комментарий </h2>
+    <form  id="comment_create">
+    {% include 'partial/form.html' with button_text='Добавить' %}
+    </form>
         <h2 class="text-center my-5 ">Комментарии к этому фото</h2>
-        {% for comment in photo.comments.all %}
+        {% for comment in comments %}
             <h4>Комментарий от пользователя {{ comment.author }}</h4>
             <p>{{ comment.text }}</p>
             <p>Дата создания: {{ comment.created_at }}</p>
