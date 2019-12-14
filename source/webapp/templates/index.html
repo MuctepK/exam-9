@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% block menu %}
+<li><a href="{% url 'webapp:create_photo' %}" class="nav nav-link">Создать фото</a></li>
+
+{% endblock %}
 {% block content %}
     <h1 class="text-center">Все фото наших пользователей</h1>
     {% for photo in photos %}
