@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block menu %}
+    {% if request.user.is_authenticated %}
 <li><a href="{% url 'webapp:create_photo' %}" class="nav nav-link">Создать фото</a></li>
+    {% endif %}
 
 {% endblock %}
 {% block content %}
@@ -19,8 +21,12 @@
             <p>Дата создания: {{ photo.created_at|date:"Y-m-d H:i:s" }}</p>
         </div>
         <div class="col-12">
+            {% if request.user == photo.author  or perms.webapp.change_photo %}
             <a href="{% url 'webapp:update_photo' photo.pk %}" class="btn btn-info">Изменить фото</a>
+            {% endif %}
+            {% if request.user == photo.author  or perms.webapp.delete_photo %}
             <a href="{% url 'webapp:delete_photo' photo.pk %}" class="btn btn-danger">Удалить фото</a>
+            {% endif %}
         </div>
         </div>
     {% endfor %}

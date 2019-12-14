@@ -15,8 +15,10 @@ class CommentViewSet(ModelViewSet):
     def get_permissions(self):
         if self.request.method in SAFE_METHODS:
             return []
-        else:
-            return super().get_permissions()
+        elif self.request.method == 'DELETE':
+            if self.request.user.has_perm('webapp.delete_comment') or self.get_object().author == self.request.user:
+                return []
+        return super().get_permissions()
 
 
 class Like(APIView):

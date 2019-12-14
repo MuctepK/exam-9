@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% block menu %}
+    {% if request.user == photo.author  or perms.webapp.change_photo %}
 <li><a href="{% url 'webapp:update_photo' photo.pk %}" class="nav nav-link">Изменить фото</a></li>
+    {% endif %}
+    {% if request.user == photo.author  or perms.webapp.delete_photo %}
     <li><a href="{% url 'webapp:delete_photo' photo.pk %}" class="nav nav-link">Удалить фото</a></li>
+    {% endif %}
 {% endblock %}
 {% block content %}
     <h1 class="text-center">Фото N{{ photo.pk }}</h1>
@@ -16,6 +20,7 @@
             <div id="rating">Рейтинг: {{ photo.likes }}</div>
             <p>Дата создания: {{ photo.created_at|date:"Y-m-d H:i:s" }}</p>
         </div>
+            {% if request.user.is_authenticated %}
         <div class="like or dislike">
             <a href="" class="btn btn-success" id="like_btn">Лайкнуть!</a>
             <a href="" class="btn btn-dark" id="dislike_btn">Дизлайкнуть!</a>
@@ -35,8 +40,11 @@
                     like.removeClass("d-none");
                 });
             </script>
+
         </div>
         </div>
+    {% endif %}
+                {% if request.user.is_authenticated %}
         <h2 class="text-center my-5 ">Добавить комментарий </h2>
     <form  id="comment_create">
     <div class="form-group">
@@ -48,16 +56,20 @@
         <input type="submit" value="Добавить" class="btn btn-primary " id="formCreateSubmit">
     </p>
     </form>
+    {% endif %}
         <h2 class="text-center my-5">Комментарии к этому фото</h2>
-        <div id="comments">
+        <div id="comments" class="my-5">
         {% for comment in comments %}
             <div class="comment border-dark" id="comment_{{ comment.pk }}">
             <h4>Комментарий от пользователя {{ comment.author }}</h4>
             <p>{{ comment.text }}</p>
             <p>Дата создания: {{ comment.created_at }}</p>
+                {% if request.user == comment.author or perms.webapp.delete_comment %}
                 <a href="" class="btn btn-danger" id="delete_comment_{{ comment.pk }}">Удалить комментарий</a>
+                {% endif %}
+                {% if request.user == comment.author or perms.webapp.change_comment %}
                 <a href="" class="btn btn-info" id="update_comment_{{ comment.pk }}">Изменить комментарий</a>
-
+                {% endif %}
                 <script>
                     $("#delete_comment_{{ comment.pk }}").on('click', function(event){
                         event.preventDefault();
@@ -66,7 +78,7 @@
                 </script>
             </div>
             {% empty %}
-            <h5>К этому фото еще не добавили комментариев...</h5>
+            <h5 class="my-5">К этому фото еще не добавили комментариев...</h5>
         {% endfor %}
         </div>
 {% endblock %}
